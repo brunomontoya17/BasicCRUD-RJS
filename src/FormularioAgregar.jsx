@@ -1,65 +1,68 @@
 import { useState, useEffect, Fragment } from "react";
 import { useForm } from "react-hook-form";
-import { Producto, Rubro, listaRubros} from "./MODEL";
+import { Producto, Rubro, listaRubros } from "./MODEL";
 
-function FormularioAgregar({listaProd, setListaProd}) {
+function FormularioAgregar({ listaProd, setListaProd }) {
 
     const prod = new Producto();
     //console.log(prod);
     const [addProd, setAddProd] = useState(prod);
     const [selRubro, setSelRubro] = useState(listaRubros[0])
-    const [lRubro,setLRubro] = useState([...listaRubros]);
-    const [countAdd, setCountAdd] =useState(0);
+    const [lRubro, setLRubro] = useState([...listaRubros]);
+    const [countAdd, setCountAdd] = useState(0);
+    let contador= 0;
+    /*
+    useEffect(() => {
+        countAdd + 1;
+    }, [countAdd])*/
 
     function cambioNombre(e) {
         setAddProd((valores) => ({
-          ...valores,
-          nombre: e.target.value,
+            ...valores,
+            nombre: e.target.value,
         }))
-      }
-    
-    function cambioDescripcion(e)
-    {
+    }
+
+    function cambioDescripcion(e) {
         setAddProd((desagg) => ({
             ...desagg,
             descripcion: e.target.value,
         }))
     }
 
-    function cambioPrecio(e)
-    {
+    function cambioPrecio(e) {
         setAddProd((desagg) => ({
             ...desagg,
             precio: parseFloat(e.target.value),
         }))
     }
 
-    function cambioRubro(e)
-    {
+    function cambioRubro(e) {
         const found = listaRubros.find((rubr) => rubr.idRubro == e.target.value);
-        setSelRubro(found);
-        setAddProd((desagg) => 
-        ({
-            ...desagg,
-            rubro: selRubro
-        }));
-    }
-
-    function agregarProducto(e)
-    {
-        e.preventDefault();
-        setCountAdd(countAdd+1);
+        
         setAddProd((desagg) =>
         ({
             ...desagg,
-            idProd: countAdd
+            rubro: found
+        }));
+        setSelRubro(found);
+    }
+
+    function agregarProducto(e) {
+        e.preventDefault();
+        
+        contador++;
+        setAddProd((desagg) =>
+        ({
+            ...desagg,
+            idProd: contador
         }))
         //listaProductos.push(addProd);
-        setListaProd([...listaProd,addProd])
+        setListaProd([...listaProd, addProd])
         //listaProductos.forEach((produ) => {console.log(`${produ.nombre} : ${produ.precio}`)});
-        document.getElementById("nombreProd").value="";
-        document.getElementById("descProd").value="";
-        document.getElementById("precProd").value=0;
+        document.getElementById("nombreProd").value = "";
+        document.getElementById("descProd").value = "";
+        document.getElementById("precProd").value = 0;
     }
 
     return (
