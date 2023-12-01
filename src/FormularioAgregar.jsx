@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
+
 import { Producto, Rubro, listaRubros } from "./MODEL";
 
-function FormularioAgregar({ listaProd, setListaProd }) {
+function FormularioAgregar({ products, setProducts }) {
     const clearForm = () => {
         document.getElementById("name").value = "";
         document.getElementById("description").value = "";
@@ -16,7 +18,7 @@ function FormularioAgregar({ listaProd, setListaProd }) {
         const typeId = document.getElementById("type").value;
         const type = new Rubro(typeId, typeName);
 
-        return new Producto(listaProd.length, name, description, price, type)
+        return new Producto(products.length, name, description, price, type)
     }
 
     const agregarProducto = (e) => {
@@ -24,7 +26,7 @@ function FormularioAgregar({ listaProd, setListaProd }) {
 
         const product = readProduct()
         console.log(product)
-        setListaProd([...listaProd, product])
+        setProducts([...products, product])
         clearForm();
     }
 
@@ -65,6 +67,11 @@ function FormularioAgregar({ listaProd, setListaProd }) {
             </form>
         </div>
     );
+}
+
+FormularioAgregar.propTypes = {
+    products: PropTypes.array,
+    setProducts: PropTypes.func,
 }
 
 export default FormularioAgregar;
