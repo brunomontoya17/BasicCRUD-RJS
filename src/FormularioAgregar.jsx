@@ -1,68 +1,31 @@
-import { useState, useEffect, Fragment } from "react";
-import { useForm } from "react-hook-form";
 import { Producto, Rubro, listaRubros } from "./MODEL";
 
 function FormularioAgregar({ listaProd, setListaProd }) {
-
-    const prod = new Producto();
-    //console.log(prod);
-    const [addProd, setAddProd] = useState(prod);
-    const [selRubro, setSelRubro] = useState(listaRubros[0])
-    const [lRubro, setLRubro] = useState([...listaRubros]);
-    const [countAdd, setCountAdd] = useState(0);
-    let contador = 0;
-    /*
-    useEffect(() => {
-        countAdd + 1;
-    }, [countAdd])*/
-
-    const cambioNombre = (e) => {
-        setAddProd((valores) => ({
-            ...valores,
-            nombre: e.target.value,
-        }))
+    const clearForm = () => {
+        document.getElementById("name").value = "";
+        document.getElementById("description").value = "";
+        document.getElementById("price").value = 0;
     }
 
-    const cambioDescripcion = (e) => {
-        setAddProd((desagg) => ({
-            ...desagg,
-            descripcion: e.target.value,
-        }))
-    }
+    const readProduct = () => {
+        const name = document.getElementById("name").value;
+        const description = document.getElementById("description").value;
+        const price = document.getElementById("price").value;
 
-    const cambioPrecio = (e) => {
-        setAddProd((desagg) => ({
-            ...desagg,
-            precio: parseFloat(e.target.value),
-        }))
-    }
+        const typeName = document.getElementById("type").value;
+        const typeId = document.getElementById("type").value;
+        const type = new Rubro(typeId, typeName);
 
-    const cambioRubro = (e) => {
-        const found = listaRubros.find((rubr) => rubr.idRubro == e.target.value);
-
-        setAddProd((desagg) =>
-        ({
-            ...desagg,
-            rubro: found
-        }));
-        setSelRubro(found);
+        return new Producto(listaProd.length, name, description, price, type)
     }
 
     const agregarProducto = (e) => {
         e.preventDefault();
 
-        contador++;
-        setAddProd((desagg) =>
-        ({
-            ...desagg,
-            idProd: contador
-        }))
-        //listaProductos.push(addProd);
-        setListaProd([...listaProd, addProd])
-        //listaProductos.forEach((produ) => {console.log(`${produ.nombre} : ${produ.precio}`)});
-        document.getElementById("nombreProd").value = "";
-        document.getElementById("descProd").value = "";
-        document.getElementById("precProd").value = 0;
+        const product = readProduct()
+        console.log(product)
+        setListaProd([...listaProd, product])
+        clearForm();
     }
 
     return (
@@ -73,22 +36,22 @@ function FormularioAgregar({ listaProd, setListaProd }) {
                     <tbody>
                         <tr>
                             <td><label>Nombre</label></td>
-                            <td><input id="nombreProd" type="text" value={addProd.nombre} onChange={cambioNombre} /></td>
+                            <td><input id="name" type="text" /></td>
                         </tr>
                         <tr>
                             <td><label>Descripcion</label></td>
-                            <td><input id="descProd" type="textarea" value={addProd.descripcion} cols="128" rows="8" onChange={cambioDescripcion} /></td>
+                            <td><input id="description" type="textarea" cols="128" rows="8" /></td>
                         </tr>
                         <tr>
                             <td><label>Precio</label></td>
-                            <td><input id="precProd" type="number" value={addProd.precio} step={0.01} onChange={cambioPrecio} /></td>
+                            <td><input id="price" type="number" step={0.01} /></td>
                         </tr>
                         <tr>
                             <td><label>Rubro</label></td>
-                            <td><select id="rubProd" value={selRubro.idRubro} onChange={cambioRubro}>
-                                {lRubro.map((rub) => {
+                            <td><select id="type">
+                                {listaRubros.map((rub) => {
                                     return (
-                                        <option key={rub.idRubro} value={rub.idRubro}>{rub.nombreRubro}</option>
+                                        <option key={rub.idRubro} value={rub.nombreRubro}>{rub.nombreRubro}</option>
                                     )
                                 })}
                             </select></td>
