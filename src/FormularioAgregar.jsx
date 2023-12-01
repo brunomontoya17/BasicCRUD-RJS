@@ -16,28 +16,28 @@ function FormularioAgregar({ listaProd, setListaProd }) {
         countAdd + 1;
     }, [countAdd])*/
 
-    function cambioNombre(e) {
+    const cambioNombre = (e) => {
         setAddProd((valores) => ({
             ...valores,
             nombre: e.target.value,
         }))
     }
 
-    function cambioDescripcion(e) {
+    const cambioDescripcion = (e) => {
         setAddProd((desagg) => ({
             ...desagg,
             descripcion: e.target.value,
         }))
     }
 
-    function cambioPrecio(e) {
+    const cambioPrecio = (e) => {
         setAddProd((desagg) => ({
             ...desagg,
             precio: parseFloat(e.target.value),
         }))
     }
 
-    function cambioRubro(e) {
+    const cambioRubro = (e) => {
         const found = listaRubros.find((rubr) => rubr.idRubro == e.target.value);
         
         setAddProd((desagg) =>
@@ -48,7 +48,7 @@ function FormularioAgregar({ listaProd, setListaProd }) {
         setSelRubro(found);
     }
 
-    function agregarProducto(e) {
+    const agregarProducto = (e) => {
         e.preventDefault();
         
         contador++;
