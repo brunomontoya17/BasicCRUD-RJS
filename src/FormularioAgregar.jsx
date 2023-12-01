@@ -12,7 +12,7 @@ function FormularioAgregar({ products, setProducts }) {
     const readProduct = () => {
         const name = document.getElementById("name").value;
         const description = document.getElementById("description").value;
-        const price = document.getElementById("price").value;
+        const price = Number(document.getElementById("price").value);
 
         const typeName = document.getElementById("type").value;
         const typeId = document.getElementById("type").value;
@@ -26,6 +26,12 @@ function FormularioAgregar({ products, setProducts }) {
 
         const product = readProduct()
         console.log(product)
+
+        if (!product.nombre || !product.descripcion || !product.rubro) {
+            console.log("missing fields")
+            return
+        }
+
         setProducts([...products, product])
         clearForm();
     }
@@ -46,7 +52,7 @@ function FormularioAgregar({ products, setProducts }) {
                         </tr>
                         <tr>
                             <td><label>Precio</label></td>
-                            <td><input id="price" type="number" step={0.01} /></td>
+                            <td><input id="price" type="number" step={0.01} min={0} defaultValue={0}/></td>
                         </tr>
                         <tr>
                             <td><label>Rubro</label></td>
