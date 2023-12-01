@@ -2,6 +2,7 @@ import { Producto, Rubro, listaRubros } from "./MODEL";
 import { useState, useEffect, Fragment } from "react";
 
 function FormularioSelect({ listaProd, setListaProd }) {
+    
     return (
         <Fragment>
             <div>
