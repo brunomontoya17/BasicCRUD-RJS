@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import { useForm } from "react-hook-form";
-import { Producto, Rubro, listaRubros } from "./MODEL";
+import { Producto, Rubro, listaRubros, retornarValor } from "./MODEL";
 
 function FormularioAgregar({ listaProd, setListaProd }) {
 
@@ -11,10 +11,20 @@ function FormularioAgregar({ listaProd, setListaProd }) {
     const [lRubro, setLRubro] = useState([...listaRubros]);
     const [countAdd, setCountAdd] = useState(0);
     let contador= 0;
-    /*
+    const [cambiador, setCambiador] = useState(false);
+    
     useEffect(() => {
-        countAdd + 1;
-    }, [countAdd])*/
+        setAddProd((desagg) =>
+        ({
+            ...desagg,
+            idProd: retornarValor()
+        }))
+        setAddProd((desagg) =>
+        ({
+            ...desagg,
+            rubro: selRubro
+        }));
+    }, [listaProd])
 
     function cambioNombre(e) {
         setAddProd((valores) => ({
@@ -51,12 +61,7 @@ function FormularioAgregar({ listaProd, setListaProd }) {
     function agregarProducto(e) {
         e.preventDefault();
         
-        contador++;
-        setAddProd((desagg) =>
-        ({
-            ...desagg,
-            idProd: contador
-        }))
+        setCambiador(!cambiador.valueOf());
         //listaProductos.push(addProd);
         setListaProd([...listaProd, addProd])
         //listaProductos.forEach((produ) => {console.log(`${produ.nombre} : ${produ.precio}`)});
