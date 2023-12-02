@@ -16,7 +16,7 @@ function App() {
       <Container>
         <Row>
           <Col>
-            <FormularioAgregar listaProd={listaProd} setListaProd={setListaProd}/>
+            <FormularioAgregar products={listaProd} setProducts={setListaProd}/>
           </Col>
           <Col>
             <FormularioSelect listaProd={listaProd} setListaProd={setListaProd}/>
