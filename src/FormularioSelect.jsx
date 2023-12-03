@@ -1,10 +1,18 @@
+import { set } from "react-hook-form";
 import { Producto, Rubro, listaRubros } from "./MODEL";
 import { useState, useEffect, Fragment } from "react";
 
+import PropTypes from 'prop-types';
+
 function FormularioSelect({ listaProd, setListaProd }) {
     
+    function borrarProducto(idPr)
+    {
+        const temp = listaProd.filter((prod) => prod.idProd !== idPr);
+        setListaProd(temp);
+    }
+
     return (
-        <Fragment>
             <div>
                 <form>
                     <table>
@@ -28,6 +36,8 @@ function FormularioSelect({ listaProd, setListaProd }) {
                                         <td>{prod.descripcion}</td>
                                         <td>{prod.precio}</td>
                                         <td>{prod.rubro.nombreRubro}</td>
+                                        <td></td>
+                                        <td><input type='button' value='Borrar' onClick={ borrarProducto(prod.idProd) }/></td>
                                     </tr>
                                 )
                             })}
@@ -35,8 +45,12 @@ function FormularioSelect({ listaProd, setListaProd }) {
                     </table>
                 </form>
             </div>
-        </Fragment>
     );
+}
+
+FormularioSelect.propTypes = {
+    listaProd: PropTypes.array,
+    setListaProd: PropTypes.func,
 }
 
 export default FormularioSelect
