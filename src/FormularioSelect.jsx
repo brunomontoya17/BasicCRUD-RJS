@@ -62,7 +62,7 @@ function FormularioSelect({ listaProd, setListaProd }) {
                                     <td>{prod.rubro.nombreRubro}</td>
                                     <td><input type="submit" value="Modificar" onClick={() => {
                                         setModProd(prod);
-                                        setShow(true);
+                                        handleShow();
                                     }} /></td>
                                     <td><input type='submit' value='Borrar' onClick={() => {
                                         idBorrar = prod.idProd;
