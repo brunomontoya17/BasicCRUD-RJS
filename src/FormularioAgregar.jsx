@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { Producto, Rubro, listaRubros } from "./MODEL";
+import { Producto, Rubro, listaRubros, retornarID } from "./MODEL";
 
 function FormularioAgregar({ products, setProducts }) {
     const clearForm = () => {
@@ -18,7 +18,7 @@ function FormularioAgregar({ products, setProducts }) {
         const typeId = document.getElementById("type").value;
         const type = new Rubro(typeId, typeName);
 
-        return new Producto(products.length, name, description, price, type)
+        return new Producto(retornarID(), name, description, price, type)
     }
 
     const agregarProducto = (e) => {
@@ -40,15 +40,15 @@ function FormularioAgregar({ products, setProducts }) {
         <div>
             <form onSubmit={agregarProducto}>
                 <h2>Agregar Producto</h2>
-                <table>
+                <table className='table table-bordered'>
                     <tbody>
                         <tr>
                             <td><label>Nombre</label></td>
                             <td><input id="name" type="text" /></td>
                         </tr>
-                        <tr>
+                        <tr style={{height:"80px"}}>
                             <td><label>Descripcion</label></td>
-                            <td><input id="description" type="textarea" cols="128" rows="8" /></td>
+                            <td><textarea className='form-control' id="description" cols="128" rows="8" /></td>
                         </tr>
                         <tr>
                             <td><label>Precio</label></td>
@@ -56,7 +56,7 @@ function FormularioAgregar({ products, setProducts }) {
                         </tr>
                         <tr>
                             <td><label>Rubro</label></td>
-                            <td><select id="type">
+                            <td><select className='form-select' id="type">
                                 {listaRubros.map((rub) => {
                                     return (
                                         <option key={rub.idRubro} value={rub.nombreRubro}>{rub.nombreRubro}</option>

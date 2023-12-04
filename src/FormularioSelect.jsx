@@ -6,17 +6,25 @@ import PropTypes from 'prop-types';
 
 function FormularioSelect({ listaProd, setListaProd }) {
     
+    let idBorrar = 0;
+
     function borrarProducto(idPr)
     {
-        const temp = listaProd.filter((prod) => prod.idProd !== idPr);
-        setListaProd(temp);
+        
+        
     }
+
 
     return (
             <div>
-                <form>
-                    <table>
-                        <thead>
+                <form onSubmit={ (e) => { e.preventDefault();
+                console.log(idBorrar);
+                
+                const temp = listaProd.filter( (prod) => idBorrar != prod.idProd );
+                setListaProd(temp)} }>
+                    <h2>Lista de Productos</h2>
+                    <table className='table table-bordered'>
+                        <thead className="table-dark">
                             <tr>
                                 <td>ID</td>
                                 <td>Nombre</td>
@@ -30,14 +38,14 @@ function FormularioSelect({ listaProd, setListaProd }) {
                         <tbody>
                             {listaProd.map((prod) => {
                                 return (
-                                    <tr key={prod.idProd}>
+                                    <tr id={prod.idProd} key={prod.idProd}>
                                         <td>{prod.idProd}</td>
                                         <td>{prod.nombre}</td>
                                         <td>{prod.descripcion}</td>
                                         <td>{prod.precio}</td>
                                         <td>{prod.rubro.nombreRubro}</td>
                                         <td></td>
-                                        <td><input type='button' value='Borrar' onClick={ borrarProducto(prod.idProd) }/></td>
+                                        <td><input type='submit' value='Borrar' onClick={ () => { idBorrar = prod.idProd } } /></td>
                                     </tr>
                                 )
                             })}

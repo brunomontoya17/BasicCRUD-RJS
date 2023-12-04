@@ -31,7 +31,11 @@ function Rubro (idRubro=0,nombreRubro='')
     this.idRubro = idRubro;
     this.nombreRubro = nombreRubro;
 }
-
+let countID = 0;
+function retornarID() {
+    countID++;
+    return countID;
+}
 
 const listaRubros = new Array();
 
@@ -42,4 +46,4 @@ listaRubros.push(verde);
 const rojo = new Rubro(3,'Rojo');
 listaRubros.push(rojo);
 
-export { Producto, Rubro, listaRubros }
+export { Producto, Rubro, listaRubros, retornarID }
