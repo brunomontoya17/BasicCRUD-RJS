@@ -1,8 +1,9 @@
-import { set } from "react-hook-form";
-import { Producto, Rubro, listaRubros } from "./MODEL";
-import { useState, useEffect, Fragment } from "react";
+
+import { Producto } from "./MODEL";
+import { useEffect, useState } from "react";
 import FormularioModificar from "./FormularioModificar";
 import { Modal, Button } from "react-bootstrap";
+import ModalModificar from "./ModalModificar";
 
 import PropTypes from 'prop-types';
 
@@ -16,25 +17,30 @@ function FormularioSelect({ listaProd, setListaProd }) {
     const handleClose = () => setShow(false);
     const [modProd, setModProd] = useState(new Producto())
 
-    function Modificar() {
-        return (
-            <>
-
-            </>
-        );
-
-    }
-
+    /*useEffect(() => {
+        
+            const eject = () => {
+                console.log("Modificacion en curso");
+                return (
+                    <ModalModificar modProd={modProd} setModProd={setModProd} listaProd={listaProd} setListaProd={setListaProd}
+                        show={show} setShow={setShow} />
+                )
+            }
+            if (comando == "modificar") {
+                eject();
+                handleShow();
+            }
+    }, [modProd])*/
 
     return (
         <div>
             <form onSubmit={(e) => {
                 e.preventDefault();
                 if (comando == "borrar") {
-                    console.log(idBorrar);
                     const temp = listaProd.filter((prod) => idBorrar != prod.idProd);
                     setListaProd(temp);
                 }
+
             }
 
             }>
@@ -61,12 +67,25 @@ function FormularioSelect({ listaProd, setListaProd }) {
                                     <td>{prod.precio}</td>
                                     <td>{prod.rubro.nombreRubro}</td>
                                     <td><input type="submit" value="Modificar" onClick={() => {
+                                        comando = "modificar";
                                         setModProd(prod);
+                                        /* Harry Potter y el misterio de porque no funca en el submit del form y aca en el
+                                        onclick anda perfecto */ 
+                                        const eject = () => {
+                                            console.log("Modificacion en curso");
+                                            return (
+                                                <ModalModificar modProd={modProd} setModProd={setModProd} listaProd={listaProd} setListaProd={setListaProd}
+                                                    show={show} setShow={setShow} />
+                                            )
+                                        }
+                                        eject();
                                         handleShow();
+                                        //handleShow();
                                     }} /></td>
                                     <td><input type='submit' value='Borrar' onClick={() => {
+                                        comando = "borrar";
                                         idBorrar = prod.idProd;
-                                        comando = "borrar"
+
                                     }} /></td>
                                 </tr>
                             )
@@ -80,7 +99,7 @@ function FormularioSelect({ listaProd, setListaProd }) {
                 </Modal.Header>
                 <Modal.Body>
                     <FormularioModificar producto={modProd} setProducto={setModProd} listaProd={listaProd}
-                    setListaProd={setListaProd} closeShow={handleClose} />
+                        setListaProd={setListaProd} closeShow={handleClose} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose} >Close Modal</Button>

@@ -14,12 +14,6 @@ function FormularioAgregar({ products, setProducts }) {
         const description = document.getElementById("description").value;
         const price = Number(document.getElementById("price").value);
         const type = JSON.parse(document.getElementById("type").value);
-        console.log(`ID: ${type.idRubro} // Nombre: ${type.nombreRubro}`)
-        /*
-        const typeName = document.getElementById("type").value;
-        const typeId = document.getElementById("type").key;
-        console.log(typeId);
-        const type = new Rubro(typeId, typeName);*/
         const addRubro = new Rubro(type.idRubro,type.nombreRubro);
         return new Producto(retornarID(), name, description, price, addRubro)
     }
