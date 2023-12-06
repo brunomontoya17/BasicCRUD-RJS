@@ -1,8 +1,26 @@
 import PropTypes from 'prop-types';
 
-import { Producto, Rubro, listaRubros, retornarID } from "./MODEL";
+import { Producto, Rubro, retornarID } from "./MODEL";
+import FormularioBaseAM from './FormularioBaseAM';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function FormularioAgregar({ products, setProducts }) {
+
+    const objAgregar = {
+        onChangeName: (e) => {
+            e.target.value = e.target.value;
+        },
+        onChangeDescripcion: (e) => {
+            
+        },
+        onChangePrecio: (e) => {
+            
+        },
+        onChangeRubro: (e) => {
+            
+        }
+    }
+
     const clearForm = () => {
         document.getElementById("name").value = "";
         document.getElementById("description").value = "";
@@ -37,15 +55,16 @@ function FormularioAgregar({ products, setProducts }) {
         <div>
             <form onSubmit={agregarProducto}>
                 <h2>Agregar Producto</h2>
+                {/* 
                 <table className='table table-bordered'>
                     <tbody>
                         <tr>
-                            <td><label>Nombre</label></td>
+                            <td><label>Nombre:</label></td>
                             <td><input id="name" type="text" /></td>
                         </tr>
                         <tr style={{height:"80px"}}>
                             <td><label>Descripcion</label></td>
-                            <td><textarea className='form-control' id="description" cols="128" rows="8" /></td>
+                            <td><textarea className='form-control' id="description" cols="128" rows="3" /></td>
                         </tr>
                         <tr>
                             <td><label>Precio</label></td>
@@ -66,7 +85,14 @@ function FormularioAgregar({ products, setProducts }) {
                             <td><label><input type="submit" value={"Ingresar Producto"} /></label></td>
                         </tr>
                     </tbody>
-                </table>
+                </table> */}
+                <FormularioBaseAM obj={objAgregar} productoMod={null}/>
+                <Container>
+                    <Row>
+                        <Col><label htmlFor='addProd'>Ingresar:</label></Col>
+                        <Col><input id="addProd "type="submit" value={"Ingresar Producto"} /></Col>
+                    </Row>
+                </Container>
             </form>
         </div>
     );

@@ -1,16 +1,44 @@
-import { listaRubros } from "./MODEL";
-
+import { Container, Row, Col } from 'react-bootstrap';
+import FormularioBaseAM from './FormularioBaseAM';
 import PropTypes from 'prop-types';
 
 function FormularioModificar({ producto, listaProd, setListaProd, setProducto, closeShow }) {
+    const objModificar = {
+        onChangeName: (e) => {
+            setProducto(({
+                ...producto,
+                nombre: e.target.value
+            }));
+        },
+        onChangeDescripcion: (e) => {
+            setProducto(({
+                ...producto,
+                descripcion: e.target.value
+            }))
+        },
+        onChangePrecio: (e) => {
+            setProducto(({
+                ...producto,
+                precio: e.target.value
+            }));
+        },
+        onChangeRubro: (e) => {
+            setProducto(({
+                ...producto,
+                rubro: JSON.parse(e.target.value)
+            }));
+        }
+    };
+
     return (
         <div>
             <form onSubmit={(e) => {
                 e.preventDefault();
                 setListaProd(listaProd.map(item => item.idProd == producto.idProd ? producto : item));
-                closeShow()
+                closeShow();
             }}>
                 <h2>Modificar Producto</h2>
+                {/* 
                 <table className='table table-bordered'>
                     <tbody>
                         <tr>
@@ -24,7 +52,8 @@ function FormularioModificar({ producto, listaProd, setListaProd, setProducto, c
                         </tr>
                         <tr>
                             <td><label>Descripcion</label></td>
-                            <td><textarea value={producto.descripcion} className='form-control' id="description" cols="128" rows="8" onChange={(e) => {
+                            <td><textarea value={producto.descripcion} className='form-control' 
+                            id="description" cols="128" rows="3" onChange={(e) => {
                                 setProducto(({
                                     ...producto,
                                     descripcion: e.target.value
@@ -61,7 +90,14 @@ function FormularioModificar({ producto, listaProd, setListaProd, setProducto, c
                             <td><label><input type="submit" value={"Modificar Producto"} /></label></td>
                         </tr>
                     </tbody>
-                </table>
+                </table>*/}
+                <FormularioBaseAM obj={objModificar} productoMod={producto} />
+                <Container>
+                    <Row>
+                        <Col><label htmlFor='modProd'>Modificar:</label></Col>
+                        <Col><input id="modProd" type="submit" value={"Modificar Producto"} /></Col>
+                    </Row>
+                </Container>
             </form>
         </div>
     );

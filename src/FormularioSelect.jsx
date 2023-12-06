@@ -1,6 +1,6 @@
 
 import { Producto } from "./MODEL";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FormularioModificar from "./FormularioModificar";
 import { Modal, Button } from "react-bootstrap";
 import ModalModificar from "./ModalModificar";
@@ -11,26 +11,11 @@ function FormularioSelect({ listaProd, setListaProd }) {
 
     let idBorrar = 0;
     let comando = '';
-
+    let idModificar = 0;
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
     const [modProd, setModProd] = useState(new Producto())
-
-    /*useEffect(() => {
-        
-            const eject = () => {
-                console.log("Modificacion en curso");
-                return (
-                    <ModalModificar modProd={modProd} setModProd={setModProd} listaProd={listaProd} setListaProd={setListaProd}
-                        show={show} setShow={setShow} />
-                )
-            }
-            if (comando == "modificar") {
-                eject();
-                handleShow();
-            }
-    }, [modProd])*/
 
     return (
         <div>
@@ -40,10 +25,12 @@ function FormularioSelect({ listaProd, setListaProd }) {
                     const temp = listaProd.filter((prod) => idBorrar != prod.idProd);
                     setListaProd(temp);
                 }
-
-            }
-
-            }>
+                if (comando == "modificar") {
+                    const selectProd = listaProd.find((prod) => prod.idProd == idModificar);
+                    setModProd(selectProd);
+                    handleShow();
+                }
+            }}>
                 <h2>Lista de Productos</h2>
                 <table className='table table-bordered'>
                     <thead className="table-dark">
@@ -68,24 +55,11 @@ function FormularioSelect({ listaProd, setListaProd }) {
                                     <td>{prod.rubro.nombreRubro}</td>
                                     <td><input type="submit" value="Modificar" onClick={() => {
                                         comando = "modificar";
-                                        setModProd(prod);
-                                        /* Harry Potter y el misterio de porque no funca en el submit del form y aca en el
-                                        onclick anda perfecto */ 
-                                        const eject = () => {
-                                            console.log("Modificacion en curso");
-                                            return (
-                                                <ModalModificar modProd={modProd} setModProd={setModProd} listaProd={listaProd} setListaProd={setListaProd}
-                                                    show={show} setShow={setShow} />
-                                            )
-                                        }
-                                        eject();
-                                        handleShow();
-                                        //handleShow();
+                                        idModificar = prod.idProd;
                                     }} /></td>
                                     <td><input type='submit' value='Borrar' onClick={() => {
                                         comando = "borrar";
                                         idBorrar = prod.idProd;
-
                                     }} /></td>
                                 </tr>
                             )
@@ -93,18 +67,9 @@ function FormularioSelect({ listaProd, setListaProd }) {
                     </tbody>
                 </table>
             </form>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Modificar</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <FormularioModificar producto={modProd} setProducto={setModProd} listaProd={listaProd}
-                        setListaProd={setListaProd} closeShow={handleClose} />
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose} >Close Modal</Button>
-                </Modal.Footer>
-            </Modal>
+            <ModalModificar modProd={modProd} setModProd={setModProd} 
+                            listaProd={listaProd} setListaProd={setListaProd}
+                            show={show} setShow={setShow} />
         </div>
     );
 }
