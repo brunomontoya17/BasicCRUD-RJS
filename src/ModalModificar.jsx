@@ -7,9 +7,6 @@ import PropTypes from 'prop-types';
 
 function ModalModificar({ modProd, setModProd, listaProd, setListaProd, show, setShow}) {
     
-    /*
-    const [show, setShow] = useState(false);
-    const handleShow = () => setShow(true);*/
     const handleClose = () => setShow(false);
 
     return (
