@@ -86,7 +86,7 @@ function FormularioAgregar({ products, setProducts }) {
                         </tr>
                     </tbody>
                 </table> */}
-                <FormularioBaseAM obj={objAgregar} productoMod={null}/>
+                <FormularioBaseAM behavior={"Agregar"} producto={null} setProducto={null}/>
                 <Container>
                     <Row>
                         <Col><label htmlFor='addProd'>Ingresar:</label></Col>

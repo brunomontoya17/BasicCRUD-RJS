@@ -22,7 +22,7 @@ function ModalModificar({ modProd, setModProd, listaProd, setListaProd, show, se
                     setListaProd={setListaProd} closeShow={handleClose} />
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose} >Close Modal</Button>
+                <Button variant="secondary" onClick={handleClose} >Cerrar</Button>
             </Modal.Footer>
         </Modal>
     );

@@ -3,32 +3,6 @@ import FormularioBaseAM from './FormularioBaseAM';
 import PropTypes from 'prop-types';
 
 function FormularioModificar({ producto, listaProd, setListaProd, setProducto, closeShow }) {
-    const objModificar = {
-        onChangeName: (e) => {
-            setProducto(({
-                ...producto,
-                nombre: e.target.value
-            }));
-        },
-        onChangeDescripcion: (e) => {
-            setProducto(({
-                ...producto,
-                descripcion: e.target.value
-            }))
-        },
-        onChangePrecio: (e) => {
-            setProducto(({
-                ...producto,
-                precio: e.target.value
-            }));
-        },
-        onChangeRubro: (e) => {
-            setProducto(({
-                ...producto,
-                rubro: JSON.parse(e.target.value)
-            }));
-        }
-    };
 
     return (
         <div>
@@ -91,7 +65,7 @@ function FormularioModificar({ producto, listaProd, setListaProd, setProducto, c
                         </tr>
                     </tbody>
                 </table>*/}
-                <FormularioBaseAM obj={objModificar} productoMod={producto} />
+                <FormularioBaseAM behavior={"Modificar"} producto={producto} setProducto={setProducto}/>
                 <Container>
                     <Row>
                         <Col><label htmlFor='modProd'>Modificar:</label></Col>
