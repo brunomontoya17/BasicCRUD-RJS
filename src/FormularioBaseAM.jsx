@@ -91,4 +91,8 @@ function FormularioBaseAM({ behavior, producto, setProducto }) {
     );
 }
 
+FormularioBaseAM.propTypes = {
+    setProducto: PropTypes.func,
+}
+
 export default FormularioBaseAM
